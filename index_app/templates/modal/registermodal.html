@@ -1,0 +1,62 @@
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Kayıt Ol</h1>
+          
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="post">
+          {% csrf_token %}
+          
+        <div class="modal-body">
+          <input name="username" id="username" class="form-control mb-2" type="text" placeholder="username">
+          <input name="email" id="email" class="form-control mb-2" type="email" placeholder="email">
+          <input name="password" id="password" class="form-control" type="password" placeholder="Şifre">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+          <button type="submit" class="btn btn-primary" onclick="registerBtn(event)">Kayıt Ol</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    
+    function registerBtn(event){
+ 
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      event.preventDefault();
+      $.ajax({
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+        url: "{% url 'register'  %}",
+        mode: 'same-origin',
+        dataType: 'json',
+        data: {
+      "username": $("#username").val(),
+      "email": $("#email").val(),
+      "password": $("#password").val(),
+     },
+    success: function (response)
+        {
+         if (response.result)
+          {
+             sweetAlert("İşlem Başarılı", response.message, "success");
+          } 
+         else {
+              sweetAlert("Hata!", response.message, "error");
+         }
+       },
+});
+    }
+   
+    
+  </script>

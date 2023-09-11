@@ -1,0 +1,44 @@
+{% load static %}
+
+<div class="side-container" id="container">
+    <div class="brand">
+        <div class="logo">
+            <ion-icon name="logo-snapchat"></ion-icon>
+        </div>
+        <h3>Marsiz</h3>
+        <a href="#" id="toggle"><ion-icon name="menu"></ion-icon></a>
+    </div>
+    
+    <div class="side-navbar">
+        <ul>
+            <div class="search">
+                <ion-icon name="search-outline"></ion-icon>
+                <input type="search" name="search" id="search" placeholder="Search">
+            </div>
+            {% if request.user.is_authenticated %}
+              
+            
+            <li><a href="#"><ion-icon name="grid-outline"></ion-icon><span>DashBoard</span></a></li>
+            <li><a href="#"><ion-icon name="person-outline"></ion-icon><span>User</span></a></li>
+            <li><a href="#"><ion-icon name="chatbubbles-outline"></ion-icon><span>Message</span></a></li>
+            <li><a href="#"><ion-icon name="pie-chart-outline"></ion-icon><span>Analytics</span></a></li>
+            <li><a href="#"><ion-icon name="folder-open-outline"></ion-icon><span>file manager</span></a></li>
+            <li><a href="#"><ion-icon name="cart-outline"></ion-icon><span>Order</span></a></li>
+            <li><a href="#"><ion-icon name="heart-outline"></ion-icon><span>WishList</span></a></li>
+            <li><a href="#"><ion-icon name="settings-outline"></ion-icon><span>Setting</span></a></li>
+            {% else %}
+            <li><a href="" data-bs-toggle="modal" data-bs-target="#LoginModal" ><ion-icon name="log-in-outline"></ion-icon><span>Giriş Yap</span></a></li>
+            <li><a href="" id="test" data-bs-toggle="modal" data-bs-target="#RegisterModal" ><img width="25px" class="svgicon" height="25px" src="{% static 'icon/signup.svg' %}" alt=""><span>Kayıt Ol</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="user">
+        <img src="1.jpg" alt="">
+        <div class="name">
+            <h5>Marsiz Forum</h5>
+            <span>Mustafa Erdem</span>
+        </div>
+        <a href="{% url 'logout' %}"><ion-icon name="log-out-outline"></ion-icon></a>
+    </div>
+    
+</div>
