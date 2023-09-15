@@ -1,5 +1,5 @@
 - [x] Django install
-- [ ] Login/Register
-- [ ] Add Post
+- [x] Login/Register
+- [x] Add Post
 
-İlerleme durumu : ![1%](https://progress-bar.dev/1)
+İlerleme durumu : ![1%](https://progress-bar.dev/5)
