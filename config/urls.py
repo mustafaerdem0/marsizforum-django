@@ -22,11 +22,14 @@ from django.contrib import admin
 from django.urls import path,include
 from index_app.views import *
 from .settings import *
+from post_app.views import *
+from myuser_app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_views,name="index"),
-    
-
+    path('forumlar/<slug:forum_slug>',forum_views,name='forum_views'),
+    path('konular/<slug:konu_slug>/<int:id>',post_views,name='post_views'),
+    path('user/<str:username>', profile_detail, name='profile_detail'),
 
 
 

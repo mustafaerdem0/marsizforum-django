@@ -10,6 +10,7 @@ def index_views(request):
     context = dict(
         post = post.objects.all(),
         categorys = forum_category.objects.all(),
+        category_views = category.objects.all()
     )
     
     return render(request,'index.html',context)
@@ -22,13 +23,13 @@ def register_forum(request):
     password = post.get('password')
     result = True
     message = ""
-    controluser = User.objects.filter(username = username).first()
-    controluseremail = User.objects.filter(email = email).first()
+    controluser = MyUser.objects.filter(username = username).first()
+    controluseremail = MyUser.objects.filter(email = email).first()
     if not controluser:
         if not controluseremail:
             if username and email and password:
                 # print(username,email,password)
-                createuser = User.objects.create_user(username=username,email=email,password=password)
+                createuser = MyUser.objects.create_user(username=username,email=email,password=password)
                 if createuser:
                     message = "Kayıt başarılı giriş yapın"
                 else:

@@ -4,3 +4,4 @@ from post_app.models import *
 admin.site.register(category)
 admin.site.register(forum_category)
 admin.site.register(post)
+admin.site.register(Comments)

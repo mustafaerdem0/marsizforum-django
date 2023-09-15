@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+
+{% block site-content %}
+
+{% include "modal/registermodal.html" %}
+{% include "modal/loginmodal.html" %}
+{% include "partials/_sidenav.html" %}
+
+<style>
+    .content-background{
+        background-color: red; /* For browsers that do not support gradients */
+        background-image: linear-gradient(to right, rgb(89, 3, 3) , rgb(170, 18, 18));
+    }
+    .extra-container{
+        width: 85%;
+        border-width: 0.3px;
+        border-style: solid;
+        border-bottom-color: #464646;
+        border-left-color: #464646;
+        margin-bottom: 13px;
+    }
+    .extra-content{
+        font-size: 15px;
+        color: whitesmoke;
+        margin: 0;
+    }
+    .content-row{
+    background: #101010;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #464646;
+    border-right-color: #464646;
+    border-bottom-color: #464646;
+    border-left-color: #464646;
+    }
+    .content-col{
+    background: #101010;
+    border-width: 1px;
+    border-style: solid;
+    border-right-color: #464646;
+    }
+</style>
+<div class="main" id="main">
+    <div class="container pt-5">
+  <div class="row content-row ">
+    <div class="col-2 content-col d-flex flex-wrap flex-column align-items-center pt-4" >
+        <img src="{{post.author_user.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+        <h5 class="text-white mb-1 mt-1">{{post.author_user}}</h5>
+        {% for ranks in post.author_user.rank.all %}
+        <img src="{{ranks.image.url}}" class="mt-1 mb-1" width="80%" alt="" >
+        {% endfor %}
+        <div  class="content-background extra-container  d-flex justify-content-between ps-2 pe-2">
+            <p class="extra-content">Katılım:</p>
+            <p class="extra-content">{{post.author_user.date_joined|date:"d M Y"}}</p>
+        </div>
+    </div>
+    <div class="col-10 ps-2" >
+        <small class="text-white">{{post.post_created}}</small>
+        <hr class="m-0 text-white">
+        {{post.content|safe}}
+    </div>
+</div>
+</div>
+</div>
+{% endblock site-content %}

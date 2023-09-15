@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
 MY_APPS = [
     'index_app',
     'post_app',
+    'myuser_app',
 ]
 
 # ALL APPS
@@ -141,3 +142,7 @@ MEDIA_ROOT = BASE_DIR / 'media_files'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# myuser model
+AUTH_USER_MODEL = 'myuser_app.MyUser'

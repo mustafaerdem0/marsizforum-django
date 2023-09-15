@@ -3,6 +3,7 @@
 	--black-main-color:  rgba(0, 0, 0, 0.9);
 	--red-main-color: #700404;
 	--border-main-color: #404041;
+	--comment-main-color: #191919;
 }
 *{
 margin: 0;

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+
+{% block site-content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+
+{% include "modal/registermodal.html" %}
+{% include "modal/loginmodal.html" %}
+{% include "partials/_sidenav.html" %}
+<div class="main" id="main">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+          
+                <div class="ibox-content forum-container">
+        
+                    <div class="category-container">
+                    <div class="category-title-border" >
+                    <div class="forum-title">
+                        <div class="pull-right forum-desc">
+                            <samll>Total posts: 320,800</samll>
+                        </div>
+                        <!-- forum başlığı kısmı -->
+                        <h3 >yest</h3>
+                    </div>
+                </div>
+            </div>
+                    {% for post in post_views %}
+                    <div class="category-border" >
+                    <div class="forum-item active">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="forum-icon">
+                                    <i class="fa fa-shield"></i>
+                                </div>
+                                <!-- kategorinin içindeki formun ismi -->
+                                <a href="{{post.post_absolute_url}}" class="forum-item-title">{{post.title}}</a>
+                                <!-- kategorinin içindeki formun açıklamasının ismi -->
+                                <div class="forum-sub-title">Talk about sports, entertainment, music, movies, your favorite color, talk about enything.</div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    1216
+                                </span>
+                                <div>
+                                    <small>Views</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    368
+                                </span>
+                                <div>
+                                    <small>Topics</small>
+                                </div>
+                            </div>
+                            <div class="col-md-1 forum-info">
+                                <span class="views-number">
+                                    140
+                                </span>
+                                <div>
+                                    <small>Posts</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+         
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    {% endblock site-content %}
