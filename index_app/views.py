@@ -9,7 +9,7 @@ from post_app.models import *
 def index_views(request):
     context = dict(
         post = post.objects.all(),
-        categorys = forum_category.objects.all(),
+        categorys = category_title.objects.all(),
         category_views = category.objects.all()
     )
     
@@ -54,13 +54,23 @@ def login_forum(request):
     message = ""
     if usernameoremail and loginpassword:    
         usernameauth = authenticate(username = usernameoremail, password = loginpassword)
-        if usernameauth:
+        emailauth = MyUser.objects.filter(email = usernameoremail).first()
+        if emailauth:
+            user = MyUser.check_password(emailauth,loginpassword)
+            if user:
+                login(request,emailauth)
+                print('emaille giriş yaptı')
+                message = "Email ile giriş yaptınız hoşgeldin {user}".format(user = emailauth)
+            else:
+                result = False
+                message = "e posta veya şifreniz yanlış tekrar deneyiniz"
+        elif usernameauth:
                 login(request,usernameauth)
                 print("username ile giriş yaparsa",usernameauth)
-                message = "Kayıt başarılı username ile giriş yaptın"
+                message = "Giriş başarılı username ile giriş yaptın hoşgeldin {user}".format(user = usernameauth)
         else:
             result = False
-            message = "Böyle bir kullanıcı bulunamadı"
+            message = "Kullanıcı adınız veya şifreniz yanlış tekrar deneyiniz"
             
     else:
         result = False

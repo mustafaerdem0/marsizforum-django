@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Application definition
 # Django app
@@ -42,6 +44,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'tinymce',
     'ckeditor',
+    'ckeditor_uploader',
+    'django_bleach',
 
 ]
 
@@ -146,3 +150,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # myuser model
 AUTH_USER_MODEL = 'myuser_app.MyUser'
+
+
+# bleach settings 
+
+
+# Which HTML tags are allowed
+BLEACH_ALLOWED_TAGS = ['p']
+
+# Which HTML attributes are allowed
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'style']
+
+# Which CSS properties are allowed in 'style' attributes (assuming
+# style is an allowed attribute)
+BLEACH_ALLOWED_STYLES = [
+    'font-family', 'font-weight', 'text-decoration', 'font-variant']
+
+# Strip unknown tags if True, replace with HTML escaped characters if
+# False
+BLEACH_STRIP_TAGS = True
+
+# Strip comments, or leave them in.
+BLEACH_STRIP_COMMENTS = False

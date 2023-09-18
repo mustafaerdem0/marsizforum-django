@@ -43,10 +43,22 @@
 </style>
 <div class="main" id="main">
     <div class="container pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/" class="text-white">Ana sayfa</a></li>
+            
+              <li class="breadcrumb-item " aria-current="page"> <a href="{{post.category.forum_absolute_url}}" class="text-white ">{{post.category}}</a></li>
+              <li class="breadcrumb-item active opacity-75 text-white" aria-current="page">{{post.title}}</li>
+            </ol>
+          </nav>
   <div class="row content-row ">
     <div class="col-2 content-col d-flex flex-wrap flex-column align-items-center pt-4" >
+        {% if post.author_user.avatar %}
         <img src="{{post.author_user.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
-        <h5 class="text-white mb-1 mt-1">{{post.author_user}}</h5>
+          {% else %}
+          <img src="https://bootdey.com/img/Content/avatar/avatar3.png"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+        {% endif %}
+        <h5 class="text-white mb-1 mt-1"> <a href="{{post.author_user.user_profile_detail_url}}"> {{post.author_user}} </a></h5>
         {% for ranks in post.author_user.rank.all %}
         <img src="{{ranks.image.url}}" class="mt-1 mb-1" width="80%" alt="" >
         {% endfor %}

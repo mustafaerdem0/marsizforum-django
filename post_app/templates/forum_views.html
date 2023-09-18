@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load bleach_tags %}
 
 
 
@@ -11,14 +11,25 @@
 {% include "modal/registermodal.html" %}
 {% include "modal/loginmodal.html" %}
 {% include "partials/_sidenav.html" %}
+<style>
+    .forum-sub-title p{
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
+    }
+</style>
 <div class="main" id="main">
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInRight">
-          
                 <div class="ibox-content forum-container">
-        
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/" class="text-white">Ana sayfa</a></li>
+                        
+                          <li class="breadcrumb-item active opacity-75 text-white" aria-current="page">{{category_views.category}}</li>
+                        </ol>
+                      </nav>
                     <div class="category-container">
                     <div class="category-title-border" >
                     <div class="forum-title">
@@ -26,50 +37,43 @@
                             <samll>Total posts: 320,800</samll>
                         </div>
                         <!-- forum başlığı kısmı -->
-                        <h3 >yest</h3>
+                        <h3 > {{category_views.category}} forumuna ait gönderiler</h3>
                     </div>
                 </div>
             </div>
                     {% for post in post_views %}
                     <div class="category-border" >
                     <div class="forum-item active">
-                        <div class="row">
+                        <div class="row justify-content-between">
                             <div class="col-md-9">
-                                <div class="forum-icon">
-                                    <i class="fa fa-shield"></i>
+                                <div class="forum-icon" style="width: 36px !important;
+                                height: 50px;
+                                font-size: 22px;"
+                                >
+                                {% if post.author_user.avatar %}
+                                  
+                                <img src="{{post.author_user.avatar.url}}" style="max-width: 100%; max-height: 100%;"  alt="">
+                                {% endif %}    
                                 </div>
-                                <!-- kategorinin içindeki formun ismi -->
+                                <!-- kategorinin içindeki formun ismi --> 
                                 <a href="{{post.post_absolute_url}}" class="forum-item-title">{{post.title}}</a>
                                 <!-- kategorinin içindeki formun açıklamasının ismi -->
-                                <div class="forum-sub-title">Talk about sports, entertainment, music, movies, your favorite color, talk about enything.</div>
+                                <div class="forum-sub-title"> <p>{{post.content | bleach | safe}}</p> </div>
                             </div>
                             <div class="col-md-1 forum-info">
                                 <span class="views-number">
-                                    1216
+                                    {{post.post_view}}
                                 </span>
                                 <div>
-                                    <small>Views</small>
+                                    <small>Görüntülenme</small>
                                 </div>
                             </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    368
-                                </span>
-                                <div>
-                                    <small>Topics</small>
-                                </div>
-                            </div>
-                            <div class="col-md-1 forum-info">
-                                <span class="views-number">
-                                    140
-                                </span>
-                                <div>
-                                    <small>Posts</small>
-                                </div>
-                            </div>
+                    
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <h1 class="text-center text-white pt-4">Henüz hiç gönderi yok</h1>
                     {% endfor %}
          
                 </div>

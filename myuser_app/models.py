@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 # Create your models here.
 class Rank(models.Model):
     title = models.CharField((""), max_length=50)
@@ -19,3 +20,10 @@ class MyUser(AbstractUser):
     class Meta:
         verbose_name = 'MyUser'
         verbose_name_plural = 'MyUsers'
+    def user_profile_detail_url(self):
+        return reverse(
+            'profile_detail',
+            kwargs={
+                'username': self.username
+            }
+        )

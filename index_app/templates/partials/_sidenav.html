@@ -5,7 +5,7 @@
         <div class="logo">
             <ion-icon name="logo-snapchat"></ion-icon>
         </div>
-        <h3>Marsiz</h3>
+        <h3> <a href="/" class="text-white text-decoration-none"> Marsiz </a></h3>
         <a href="#" id="toggle"><ion-icon name="menu"></ion-icon></a>
     </div>
     
@@ -16,8 +16,6 @@
                 <input type="search" name="search" id="search" placeholder="Search">
             </div>
             {% if request.user.is_authenticated %}
-              
-            
             <li><a href="#"><ion-icon name="grid-outline"></ion-icon><span>DashBoard</span></a></li>
             <li><a href="#"><ion-icon name="person-outline"></ion-icon><span>User</span></a></li>
             <li><a href="#"><ion-icon name="chatbubbles-outline"></ion-icon><span>Message</span></a></li>
@@ -33,10 +31,14 @@
         </ul>
     </div>
     <div class="user">
-        <img src="1.jpg" alt="">
+        {% if request.user.avatar %}
+        <a href="{{request.user.user_profile_detail_url}}"><img src="{{request.user.avatar.url}}" alt="{{request.user}}"></a>
+          {% else %}
+          <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+        {% endif %}
         <div class="name">
             <h5>Marsiz Forum</h5>
-            <span>Mustafa Erdem</span>
+            <a href="{{request.user.user_profile_detail_url}}" class="text-white text-decoration-none"><span >{{request.user.username}}</span></a>
         </div>
         <a href="{% url 'logout' %}"><ion-icon name="log-out-outline"></ion-icon></a>
     </div>

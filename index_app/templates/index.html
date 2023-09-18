@@ -73,10 +73,10 @@
                         {% for altcategory in category.category.all  %}
                         <div class="category-border" >
                         <div class="forum-item active">
-                            <div class="row">
+                            <div class="row justify-content-between">
                                 <div class="col-md-9">
                                     <div class="forum-icon">
-                                        <i class="fa fa-shield"></i>
+                                        <i class="{{altcategory.category_icon}} fa"></i>
                                     </div>
                                     <!-- kategorinin içindeki formun ismi -->
                                     <a href="{{altcategory.forum_absolute_url}}" class="forum-item-title">{{altcategory}}</a>
@@ -85,26 +85,23 @@
                                 </div>
                                 <div class="col-md-1 forum-info">
                                     <span class="views-number">
-                                        1216
+                                        {% for test in altcategory.postcategory.all  %}
+                                          
+                                        {{test.post_view}}
+                                        {% endfor %}
                                     </span>
                                     <div>
                                         <small>Views</small>
                                     </div>
                                 </div>
+                               
+
                                 <div class="col-md-1 forum-info">
                                     <span class="views-number">
-                                        368
+                                        {{altcategory.postcategory.all.count}}
                                     </span>
                                     <div>
-                                        <small>Topics</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        140
-                                    </span>
-                                    <div>
-                                        <small>Posts</small>
+                                        <small>Post</small>
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +117,6 @@
 
 
 </div>
-
- 
 
 
 	

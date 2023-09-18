@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_views,name="index"),
     path('forumlar/<slug:forum_slug>',forum_views,name='forum_views'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('konular/<slug:konu_slug>/<int:id>',post_views,name='post_views'),
     path('user/<str:username>', profile_detail, name='profile_detail'),
 
