@@ -1,0 +1,6 @@
+Hi {{ user.username }},
+
+E-postanızı onaylamak için lütfen aşağıdaki bağlantıya tıklayın:
+
+
+http://{{ domain }}{% url 'emailchangeurl' uidb64=uid token=token %}

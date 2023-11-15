@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block site-content %}
+{% load crispy_forms_tags %}
+{% include "partials/_sidenav.html" %}
+
+  
+<!-- Modal -->
+    <div class="main" id="main">
+        <div class="container ">
+          <div class="row pt-5 justify-content-center">
+              <div class="col-12 col-lg-8">
+                  <form action="{% url 'createpost' %}" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{ forms.media }}
+                      {{ forms|crispy }}
+                      <button type="submit"  class="btn btn-primary">Postu Oluştur</button>
+                  </form>
+
+              </div>
+          </div>
+        </div>
+        </div>
+      
+          <script>
+      
+            let ckeditor = document.querySelectorAll(".django-ckeditor-widget");
+        
+            ckeditor.forEach(function(element) {
+            element.style.width = '100%'
+            });
+            let label = document.querySelectorAll("label");
+        
+            label.forEach(function(editext) {
+            editext.style.color = 'white'
+            });
+        </script>
+{% endblock site-content %}

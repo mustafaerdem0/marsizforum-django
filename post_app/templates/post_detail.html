@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-
+{% load static %}
 {% block site-content %}
 
 {% include "modal/registermodal.html" %}
@@ -8,6 +8,7 @@
 {% include "partials/_sidenav.html" %}
 
 <style>
+
     .content-background{
         background-color: red; /* For browsers that do not support gradients */
         background-image: linear-gradient(to right, rgb(89, 3, 3) , rgb(170, 18, 18));
@@ -40,9 +41,46 @@
     border-style: solid;
     border-right-color: #464646;
     }
+    @media only screen and (max-width: 1239px) {
+  .extra-content {
+    font-size: 12px !important;
+  }
+}
+    @media only screen and (max-width: 1064px) {
+  .extra-content {
+    font-size: 10px !important;
+  }
+}
+.ranks{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.ranks img{
+    width: 80%;
+}
+    @media only screen and (max-width: 767px) {
+  .ranks img {
+    width: 30% !important;
+  }
+  .extra-container{
+    width: 30% !important;
+  }
+  
+}
+
+
+#cke_1_contents{
+  height: 100px !important;
+  background-color: red !important;
+  
+}
+#cke_1_bottom{
+  display: none !important;
+}
 </style>
 <div class="main" id="main">
-    <div class="container pt-5">
+    <div class="" style="padding: 2rem;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/" class="text-white">Ana sayfa</a></li>
@@ -51,28 +89,151 @@
               <li class="breadcrumb-item active opacity-75 text-white" aria-current="page">{{post.title}}</li>
             </ol>
           </nav>
-  <div class="row content-row ">
-    <div class="col-2 content-col d-flex flex-wrap flex-column align-items-center pt-4" >
-        {% if post.author_user.avatar %}
-        <img src="{{post.author_user.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
-          {% else %}
-          <img src="https://bootdey.com/img/Content/avatar/avatar3.png"  width="100px" height="100px" alt="" style="border-radius: 50px;">
-        {% endif %}
-        <h5 class="text-white mb-1 mt-1"> <a href="{{post.author_user.user_profile_detail_url}}"> {{post.author_user}} </a></h5>
-        {% for ranks in post.author_user.rank.all %}
-        <img src="{{ranks.image.url}}" class="mt-1 mb-1" width="80%" alt="" >
-        {% endfor %}
-        <div  class="content-background extra-container  d-flex justify-content-between ps-2 pe-2">
-            <p class="extra-content">Katılım:</p>
-            <p class="extra-content">{{post.author_user.date_joined|date:"d M Y"}}</p>
-        </div>
-    </div>
-    <div class="col-10 ps-2" >
+  <div class="row content-row flex-sm-column flex-md-row mb-4">
+    <div class="col-md-2 col-sm-12 content-col d-flex flex-wrap flex-column align-items-center pt-4" >
+      {% if post.author_user.avatar %}
+      <img src="{{post.author_user.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+        {% else %}
+        <img src="https://bootdey.com/img/Content/avatar/avatar3.png"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+      {% endif %}
+      <h5 class="text-white mb-1 mt-1"> <a href="{{post.author_user.user_profile_detail_url}}"> {{post.author_user}} </a></h5>
+      {% for ranks in post.author_user.rank.all %}
+      <div class="ranks">
+
+      <img src="{{ranks.image.url}}" class="mt-1 mb-1"  alt="" >
+  </div>
+      {% endfor %}
+      <div  class="content-background extra-container  d-flex justify-content-between ps-2 pe-2">
+          <p class="extra-content">Katılım:</p>
+          <p class="extra-content">{{post.author_user.date_joined|date:"d M Y"}}</p>
+      </div>
+  </div>
+    <div class="col-sm-12  col-md-10 ps-2" >
+        
         <small class="text-white">{{post.post_created}}</small>
         <hr class="m-0 text-white">
         {{post.content|safe}}
+        <div class="col-2">
+            {% if user_likes %}
+            <a href="#" id="begenivar" style="color: red;" class=" text-decoration-none" onclick="begen('{{post.id}}','{{post.like.all.count}}')">like</a>
+            {% else %}
+              
+            <a href="#" id="begeniyok" style="color: white;" class=" text-decoration-none" onclick="begen('{{post.id}}','{{post.like.all.count}}')">like</a>
+            {% endif %}
+            <p class="text-white" id="begeni">toplam like: {{post.like.all.count}}</p>
+        </div>
+    </div>
+
+    
+</div>
+
+{% for test in post.comments.all  %}
+<div class="row content-row flex-sm-column flex-md-row mt-4 mb-4">
+    <div class="col-md-2 col-sm-12 content-col d-flex flex-wrap flex-column align-items-center pt-4" >
+        {% if test.comment_author.avatar %}
+        <img src="{{test.comment_author.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+          {% else %}
+          <img src="https://bootdey.com/img/Content/avatar/avatar3.png"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+        {% endif %}
+        <h5 class="text-white mb-1 mt-1"> <a href="{{test.comment_author.user_profile_detail_url}}"> {{test.comment_author}} </a></h5>
+        {% for ranks in test.comment_author.rank.all %}
+        <div class="ranks">
+
+        <img src="{{ranks.image.url}}" class="mt-1 mb-1"  alt="" >
+    </div>
+        {% endfor %}
+        <div  class="content-background extra-container  d-flex justify-content-between ps-2 pe-2">
+            <p class="extra-content">Katılım:</p>
+            <p class="extra-content">{{test.comment_author.date_joined|date:"d M Y"}}</p>
+        </div>
+    </div>
+    <div class="col-sm-12  col-md-10 ps-2" >
+        
+        <small class="text-white">{{post.post_created}}</small>
+        <hr class="m-0 text-white">
+        {{test.comment_content|safe}}
+        <div class="col-2">
+      
+          <a href="#" class="text-danger text-decoration-none" onclick="yorumbegen(event,'{{test.id}}')">like</a>
+   
+            <p class="text-white" id="begeni">toplam like: {{test.comment_like.all.count}}</p>
+        </div>
     </div>
 </div>
+{% endfor %}
+
+
+{% if request.user.is_authenticated %}
+  
+
+<div class="row">
+    <div class="col-md-2 col-sm-2 content-col d-flex flex-wrap flex-column align-items-center justify-content-center" >
+      {% if post.author_user.avatar %}
+      <img src="{{post.author_user.avatar.url}}"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+        {% else %}
+        <img src="https://bootdey.com/img/Content/avatar/avatar3.png"  width="100px" height="100px" alt="" style="border-radius: 50px;">
+      {% endif %}
+  </div>
+  <div class="col-10">
+    <form action="{% url 'createcomment' post.id %}" method="post">
+      {% csrf_token %}
+      {{comment}}
+      <button type="submit">Yorum at</button>
+    </form>
+  </div>
 </div>
+{% endif %}
+
+
 </div>
+<script>
+  
+  let ckcomment = document.querySelectorAll(".django-ckeditor-widget");
+        
+        ckcomment.forEach(function(ckcommentstyle) {
+          ckcommentstyle.style.width = '100%'
+          // ckcommentstyle.style.height = '200px'
+        });
+</script>
+
+<script>
+async function yorumbegen(event,comment){
+  event.preventDefault()
+  let request = await fetch(`http://127.0.0.1:8000/api/v1/${comment}`);
+  let response = await request.json();
+  console.log(response.data);
+}
+</script>
+
+
+
+<script>
+    async function begen(likepost, likecount) {
+    event.preventDefault();
+    let request = await fetch(`http://127.0.0.1:8000/api/v1/${likepost}/like`);
+    let response = await request.json();
+    console.log(response.data.status);
+    begeniyok = document.getElementById('begeniyok');
+    if(begeniyok){
+      begeniyok.classList.toggle('text-danger');
+    }
+    begenivar = document.getElementById('begenivar');
+    if (begenivar){
+      begenivar.classList.toggle('text-white');
+    }
+
+    if (response.data.status === "true") {    
+        allcountlike = response.data.count;
+        begeni = document.getElementById('begeni');
+        begeni.innerHTML = `toplam like: ${allcountlike}`;
+    } else {
+        allcountlike = response.data.count;
+        begeni = document.getElementById('begeni');
+        begeni.innerHTML = `toplam like: ${allcountlike}`;
+    }
+}
+
+
+
+</script>
 {% endblock site-content %}

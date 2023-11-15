@@ -46,6 +46,10 @@ THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_bleach',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'django_htmx',
+
 
 ]
 
@@ -58,6 +62,22 @@ MY_APPS = [
 # ALL APPS
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
+
+
+# Email settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'erdemmustafa643@gmail.com'
+EMAIL_HOST_USER = 'erdemmustafa643@gmail.com'
+EMAIL_HOST_PASSWORD = 'rogt fpyu mxnx miny'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# crispy 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,7 +85,10 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'myuser_app.middleware.email_change_middleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -86,9 +109,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
-
-
+# WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -172,3 +202,12 @@ BLEACH_STRIP_TAGS = True
 
 # Strip comments, or leave them in.
 BLEACH_STRIP_COMMENTS = False
+
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'height': 200,
+        
+#     },
+    
+# }

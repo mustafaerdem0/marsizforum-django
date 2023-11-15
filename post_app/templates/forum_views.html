@@ -34,7 +34,7 @@
                     <div class="category-title-border" >
                     <div class="forum-title">
                         <div class="pull-right forum-desc">
-                            <samll>Total posts: 320,800</samll>
+                            <samll>Toplam post: {{category_views.postcategory.all.count}}</samll>
                         </div>
                         <!-- forum başlığı kısmı -->
                         <h3 > {{category_views.category}} forumuna ait gönderiler</h3>
@@ -53,6 +53,9 @@
                                 {% if post.author_user.avatar %}
                                   
                                 <img src="{{post.author_user.avatar.url}}" style="max-width: 100%; max-height: 100%;"  alt="">
+                                {% else %}
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" style="max-width: 100%; max-height: 100%;"  alt="">
+
                                 {% endif %}    
                                 </div>
                                 <!-- kategorinin içindeki formun ismi --> 

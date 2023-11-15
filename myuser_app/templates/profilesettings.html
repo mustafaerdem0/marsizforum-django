@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block site-content %}
+{% include "partials/_sidenav.html" %}
+<link rel="stylesheet" href="{% static 'css/profiledetail.css' %}">
+<style>
+   .form-label{
+      color: white !important;
+   }
+</style>
+<div class="main" id="main">
+    <div class="container">
+            
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <div id="content" class="content content-full-width">
+                    <!-- begin profile -->
+                    <div class="profile">
+                       <div class="profile-header">
+                          <!-- BEGIN profile-header-cover -->
+                      
+                          <div class="profile-header-cover" 
+                          style="
+                          {% if user.banner %} 
+                          background-image: url({{user.banner.url}}); 
+                          {% else %}
+                          background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+                          {% endif %}
+                          "
+                            >
+                          </div>
+                          <!-- END profile-header-cover -->
+                          <!-- BEGIN profile-header-content -->
+                          <div class="profile-header-content">
+                             <!-- BEGIN profile-header-img -->
+                             <div class="profile-header-img">
+                                {% if user.avatar %}
+                                <img src="{{user.avatar.url}}" alt="">
+                                {% else %}
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                                {% endif %}
+                             </div>
+                             <!-- END profile-header-img -->
+                             <!-- BEGIN profile-header-info -->
+                             <div class="profile-header-info">
+                                <h4 class="m-t-10 m-b-5">{{user.username}}</h4>
+                                {% if user.about %}
+                                  
+                                <p class="m-b-10">{{user.about}}</p>
+                                {% else %}
+                                <p class="m-b-10">Buralar Boş</p>
+                                {% endif %}
+                                
+                                <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                             </div>
+                             <!-- END profile-header-info -->
+                          </div>
+                          <!-- END profile-header-content -->
+                          <!-- BEGIN profile-header-tab -->
+                          {% include "partials/_profilenav.html" %}
+                    
+                          <ul class="profile-header-tab nav nav-tabs" style="padding: 0 !important; margin-top: 1px; border-top: 1px solid black;">
+                           <li class="nav-item"><a href="{% url 'usersettings' %}"  class="nav-link_ active show ">PROFİL</a></li>
+                           <li class="nav-item"><a href="{% url 'userauthsettings' %}"  class="nav-link_  ">GÜVENLİK</a></li>
+
+                        </ul>      
+                          <!-- END profile-header-tab -->
+                       </div>
+                    </div>
+                    <!-- end profile -->
+                    <!-- begin profile-content -->
+                    <div class="profile-content">
+                       <form action="{% url 'usersettings' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ settings|crispy }}
+                        <button type="submit">Güncelle</button>
+                       </form>
+                    </div>
+                    <!-- end profile-content -->
+                 </div>
+              </div>
+           </div>
+        </div>
+</div>
+</div>
+{% endblock site-content %}

@@ -31,18 +31,33 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('konular/<slug:konu_slug>/<int:id>',post_views,name='post_views'),
     path('user/<str:username>', profile_detail, name='profile_detail'),
-
-
+    path('activate/<str:uidb64>/<str:token>/',Activate, name='Activate'),
+    path('passwordresetactivate/<str:uidb64>/<str:token>/',passwordresetactivate, name='passwordresetactivate'),
+    path('passwordreset',passwordresetemail, name='passwordreset'),
+    path('login',login2, name='login2'),
+    path('createpost',createpost,name='createpost'),
+    path('createcomment/<id>',createcomment,name='createcomment'),
+    path('hesap',usersettings,name='usersettings'),
+    path('hesap/guvenlik',userauthsettings,name='userauthsettings'),
+    path('emailchange',emailchange,name='emailchange'),
+    path('emailchange/<str:uidb64>/<str:token>/',emailchangeactivate,name='emailchangeurl'),
+    path('404',error404,name='404'),
 
     # LOGİN REGİSTER LOGOUT FORUM APİ 
     path('api/v1/register',register_forum,name="register"),
     path('api/v1/login', login_forum, name="login"),
     path('api/v1/logout_forum', logout_forum, name="logout"),
-
+    path('api/v1/<likepost>/like',postlike,name="postlike"),
+    path('api/v1/<comment>',commentlike,name="commentlike"),
+    path('api/v1/passwordreset/',resetpassword,name='resetpassword'),
+    path('chat/',include('chat.urls')),
 
 
     # THIRD PARTY URL
     path('tinymce/', include('tinymce.urls')),
+
+
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

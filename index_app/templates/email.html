@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block site-content %}
+{% include "partials/_sidenav.html" %}
+<div id="main" class="main">
+
+    {% if uservar %}
+        <h1 class="text-white text-center">hosgeldiniz {{user.username}}</h1>
+    {% else %}
+        <h1 class="text-white text-center">bu link kullanılmıs</h1>
+    {% endif %}
+</div>
+
+
+
+
+
+
+{% endblock site-content %}

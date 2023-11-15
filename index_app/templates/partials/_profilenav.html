@@ -1,0 +1,27 @@
+<ul class="profile-header-tab nav nav-tabs">
+    <li class="nav-item"><a href="{{request.user.user_profile_detail_url}}" target="__blank" class="nav-link_ ">POSTS</a></li>
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-photos" target="__blank" class="nav-link_">PHOTOS</a></li>
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-videos" target="__blank" class="nav-link_">VIDEOS</a></li>
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_ ">FRIENDS</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" 
+        {% if request.path == '/hesap' or request.path == '/hesap/guvenlik' %}
+        class="nav-link_ active show"  
+        {% else %}
+        class="nav-link_"
+        {% endif %}>AYARLAR</a>
+    </li>
+    {% endif %}
+    
+    <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" 
+        {% if request.path == '{{request.user_profile_detail_url}}'  %}
+        class="nav-link_ active show"  
+        {% else %}
+        class="nav-link_"
+        {% endif %}>test</a>
+    </li>
+  
+
+
+ </ul>

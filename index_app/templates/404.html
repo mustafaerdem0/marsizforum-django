@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block site-extra %}
+      <link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock site-extra %}
+
+{% block site-alert %}
+  
+{% endblock site-alert %}
+
+{% block site-content %}
+  
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1>404</h1>
+				<h2>Böyle Bir Sayfa Bulunamadı</h2>
+			</div>
+			<a href="/">Ana Sayfa</a>
+		</div>
+	</div>
+{% endblock site-content %}

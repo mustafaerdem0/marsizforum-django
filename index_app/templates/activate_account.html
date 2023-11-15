@@ -1,0 +1,5 @@
+Hi {{ user.username }},
+
+Kaydınızı onaylamak için lütfen aşağıdaki bağlantıya tıklayın:
+
+http://{{ domain }}{% url 'Activate' uidb64=uid token=token %}

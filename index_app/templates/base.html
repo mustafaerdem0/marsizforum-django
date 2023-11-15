@@ -15,16 +15,67 @@
     {% endblock site-extra %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/sidenav.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+
 </head>
 <body>
+
+ 
+
+    {% block site-alert %}
+    {% if request.usdata %}
+            <div class="alert text-center" role="alert" style="width: 100%; position: sticky;top: 0; z-index: 12321312312312; background-color: black; color: red; border: 1px solid white; font-size: 15px; margin: inherit !important; ">Lütfen E-postanızı onaylayın</div>
+
+
+    <style>
+        #container{
+            height: 94% !important;
+
+        }
+    </style>
+        {% endif %}
+    {% endblock site-alert %}
+
     {% block site-content %}
-      
+
+
+    
+
+
+
     {% endblock site-content %}
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+    let toggle2 = document.getElementById("toggle");
+    let container2 = document.getElementById("container");
+    let main2 = document.getElementById('main');
+    let mediaQuery = window.matchMedia('(max-width: 992px)')
+    function tabletDegisiminiAlgila(e) {
+    if (e.matches) {
+     console.log('992 altı');
+        container2.classList.add('active');
+        main2.classList.add('mainactive');
+   }
+   else{
+    console.log('992üstü');
+    container2.classList.remove('active')
+    main2.classList.remove('mainactive')
+   }
+ }
+    mediaQuery.addListener(tabletDegisiminiAlgila)
+    tabletDegisiminiAlgila(mediaQuery)
+    </script>
 </body>
 </html>

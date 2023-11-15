@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block site-content %}
+{% include "partials/_sidenav.html" %}
+<style>
+   .form-label{
+      color: white;
+   }
+</style>
+<link rel="stylesheet" href="{% static 'css/profiledetail.css' %}">
+<div class="main" id="main">
+    <div class="container">
+            
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <div id="content" class="content content-full-width">
+                    <!-- begin profile -->
+                    <div class="profile">
+                       <div class="profile-header">
+                          <!-- BEGIN profile-header-cover -->
+                      
+                          <div class="profile-header-cover" 
+                          style="
+                          {% if user.banner %} 
+                          background-image: url({{user.banner.url}}); 
+                          {% else %}
+                          background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+                          {% endif %}
+                          "
+                            >
+                          </div>
+                          <!-- END profile-header-cover -->
+                          <!-- BEGIN profile-header-content -->
+                          <div class="profile-header-content">
+                             <!-- BEGIN profile-header-img -->
+                             <div class="profile-header-img">
+                                {% if user.avatar %}
+                                <img src="{{user.avatar.url}}" alt="">
+                                {% else %}
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                                {% endif %}
+                             </div>
+                             <!-- END profile-header-img -->
+                             <!-- BEGIN profile-header-info -->
+                             <div class="profile-header-info">
+                                <h4 class="m-t-10 m-b-5">{{user.username}}</h4>
+                                {% if user.about %}
+                                  
+                                <p class="m-b-10">{{user.about}}</p>
+                                {% else %}
+                                <p class="m-b-10">Buralar Boş</p>
+                                {% endif %}
+                                
+                                <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                             </div>
+                             <!-- END profile-header-info -->
+                          </div>
+                          <!-- END profile-header-content -->
+                          <!-- BEGIN profile-header-tab -->
+                          {% include "partials/_profilenav.html" %}
+
+
+                          <ul class="profile-header-tab nav nav-tabs" style="padding: 0 !important; margin-top: 1px; border-top: 1px solid black;">
+                           <li class="nav-item"><a href="{% url 'usersettings' %}"  class="nav-link_ ">PROFİL</a></li>
+                           <li class="nav-item"><a href="{% url 'userauthsettings' %}"  class="nav-link_ active show ">GÜVENLİK</a></li>
+
+                        </ul>                      
+                          <!-- END profile-header-tab -->
+                       </div>
+                    </div>
+                    <!-- end profile -->
+                    <!-- begin profile-content -->
+                    <div class="profile-content">
+                       <form  method="post" action="{% url 'emailchange' %}">
+                        {% csrf_token %}
+                        {{ email|crispy }}
+                        <button class="btn btn-danger" type="submit">E Postamı Değiştir</button>
+                       </form>
+                       <form action="">
+                        {% csrf_token %}
+                           <div class="d-flex flex-column pt-4 ">
+                           <label for="" class="text-white mb-2"> Şifremi Değiştir</label>
+                        <button class="btn btn-light" onclick="sendemailpassword(event,'{{request.user.email}}')"> e post gönder</button> 
+                        </div>
+                        
+                       </form>
+                    </div>
+                    <!-- end profile-content -->
+                 </div>
+              </div>
+           </div>
+        </div>
+</div>
+</div>
+
+<script>
+function sendemailpassword(event,email){
+ 
+ const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+ event.preventDefault();
+ $.ajax({
+   method: 'POST',
+   headers: {'X-CSRFToken': csrftoken},
+   url: "{% url 'passwordreset'  %}",
+   mode: 'same-origin',
+   dataType: 'json',
+   data: {
+ "useremail":email,
+},
+success: function (response)
+   {
+    if (response.result)
+     {
+        sweetAlert("İşlem Başarılı", response.message, "success");
+        butonclick = document.getElementsByClassName('swal-button--confirm')
+        Array.from(butonclick).forEach(function(butonclick) {
+         butonclick.addEventListener('click', relodat);
+         });
+        function relodat(){
+         window.location.reload()
+        }
+        setTimeout(() => {
+         window.location.reload()
+        }, 3000);
+     }
+     
+    else {
+         sweetAlert("Hata!", response.message, "error");
+    }
+  },
+});
+}
+</script>
+{% endblock site-content %}

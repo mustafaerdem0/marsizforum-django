@@ -31,7 +31,7 @@
   <script>
     
     function registerBtn(event){
- 
+      document.body.style.cursor='wait';
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
       event.preventDefault();
       $.ajax({
@@ -49,10 +49,11 @@
         {
          if (response.result)
           {
-             sweetAlert("İşlem Başarılı", response.message, "success");
+            document.body.style.cursor='default';
+            sweetAlert("İşlem Başarılı", response.message, "success");
           } 
          else {
-              sweetAlert("Hata!", response.message, "error");
+            sweetAlert("Hata!", response.message, "error");
          }
        },
 });

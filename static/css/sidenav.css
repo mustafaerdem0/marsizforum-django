@@ -19,7 +19,9 @@ body{
 	background-color: var(--black-main-color);
 }
 
-
+p{
+	color: white;
+}
 #container{
 display: flex;
 flex-direction: column;
@@ -284,4 +286,9 @@ display: flex;
 	font-weight: bold;
 	fill: deepskyblue ;
 	background: #f1f1f1;
+}
+@media only screen and (max-width: 992px) {
+	.sidenavbuton{
+	  display: none !important;
+	}
 }

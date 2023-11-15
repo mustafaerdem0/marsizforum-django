@@ -29,7 +29,8 @@
   <script>
     
     function LoginBtn(event){
- 
+      
+      document.body.style.cursor='wait';
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
       event.preventDefault();
       $.ajax({
@@ -46,6 +47,7 @@
         {
          if (response.result)
           {
+            document.body.style.cursor='default';
              sweetAlert("İşlem Başarılı", response.message, "success");
              butonclick = document.getElementsByClassName('swal-button--confirm')
              Array.from(butonclick).forEach(function(butonclick) {
@@ -61,6 +63,7 @@
           
          else {
               sweetAlert("Hata!", response.message, "error");
+              document.body.style.cursor='default';
          }
        },
 });
