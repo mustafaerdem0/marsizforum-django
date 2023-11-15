@@ -6,4 +6,4 @@
 - [x] Profile detail
 
 
-İlerleme durumu : ![15%](https://progress-bar.dev/15)
+İlerleme durumu : ![15%](https://progress-bar.dev/70)
